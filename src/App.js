@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline } from '@mui/material';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
+import Auth from "./pages/auth";
+import Home from './pages/home/Home';
+
 
 function App() {
+
+  const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <CssBaseline />
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={isAuth ? <Home /> : <Auth />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
 export default App;
